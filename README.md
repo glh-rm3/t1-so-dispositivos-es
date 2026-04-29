@@ -159,9 +159,11 @@ O programa listará todos os eventos disponíveis com seus respectivos números 
 
 ## 🚀 Compilação e Execução
 
-Com make (recomendado)
-O projeto inclui um Makefile que automatiza a compilação. É necessário ter o utilitário make instalado.
+### Com make (recomendado)
 
+O projeto inclui um Makefile que automatiza a compilação. É necessário ter o utilitário `make` instalado.
+
+```bash
 # Debian/Ubuntu
 sudo apt install make
 
@@ -176,11 +178,14 @@ make
 
 # Remover arquivos objeto e o binário gerado
 make clean
+```
 
-Sem make (compilação manual)
-Caso prefira não instalar o make, é possível compilar diretamente com cc ou gcc:
+### Sem make (compilação manual)
 
-cc -c src/main.c       -I./include
+Caso prefira não instalar o `make`, é possível compilar diretamente com `cc` ou `gcc`:
+
+```bash
+cc -c src/main.c        -I./include
 cc -c src/scan_device.c -I./include
 cc main.o scan_device.o -o main
 
