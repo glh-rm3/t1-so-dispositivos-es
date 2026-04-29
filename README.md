@@ -44,10 +44,14 @@ A razão é fundamental: o Kernel Linux expõe os dispositivos de entrada (tecla
 
 ```
 .
-├── keylogger.c      # Lógica principal: captura de teclas e escrita no log
-├── scan_device.c    # Scanner automático do dispositivo de teclado
-├── keymap.h         # Tabela de mapeamento de key codes
-└── .log.txt         # Arquivo oculto de saída (gerado em tempo de execução)
+├── include/
+│   └── keymap.h         # Tabela de mapeamento de key codes
+├── src/
+│   ├── main.c           # Lógica principal: captura de teclas e escrita no log
+│   └── scan_device.c    # Scanner automático do dispositivo de teclado
+├── .log.txt             # Arquivo oculto de saída (gerado em tempo de execução)
+├── LICENSE
+└── Makefile
 ```
 
 ---
@@ -155,9 +159,30 @@ O programa listará todos os eventos disponíveis com seus respectivos números 
 
 ## 🚀 Compilação e Execução
 
-```bash
+Com make (recomendado)
+O projeto inclui um Makefile que automatiza a compilação. É necessário ter o utilitário make instalado.
+
+# Debian/Ubuntu
+sudo apt install make
+
+# Fedora
+sudo dnf install make
+
+# Arch Linux
+sudo pacman -S make
+
 # Compilar
-make main
+make
+
+# Remover arquivos objeto e o binário gerado
+make clean
+
+Sem make (compilação manual)
+Caso prefira não instalar o make, é possível compilar diretamente com cc ou gcc:
+
+cc -c src/main.c       -I./include
+cc -c src/scan_device.c -I./include
+cc main.o scan_device.o -o main
 
 # Executar (requer permissão de leitura em /dev/input/eventX)
 sudo ./main
