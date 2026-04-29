@@ -70,7 +70,7 @@ O programa não depende de um caminho de dispositivo fixo (como `/dev/input/even
 
 > **Nota técnica:** Durante os testes, foi verificado que mouses modernos com botões programáveis podem se anunciar ao Kernel como dispositivos de teclado. A presença do LED de Caps Lock foi o critério mais eficaz para eliminar esses falsos positivos.
 
-### 2. Captura de Teclas (`keylogger.c`)
+### 2. Captura de Teclas (`main.c`)
 
 Com o file descriptor do teclado em mãos, o programa entra em um loop bloqueante onde a syscall `read()` aguarda por novos eventos do tipo `struct input_event` sem consumir CPU:
 
@@ -115,6 +115,13 @@ O arquivo `keymap.h` define o array `key_code_names[]`, que mapeia cada `KEY_COD
 | Seta para cima | `_up_` |
 
 > **Limitação conhecida:** Caracteres que dependem de combinações com Shift para produzir um símbolo diferente (como `Shift+2` para `@` em layouts ABNT2) não são resolvidos para o símbolo final. O log registrará a sequência de teclas, por exemplo `_lsf_2`. Isso ocorre porque o mapeamento é feito no nível de key codes, sem interpretação de layout de teclado.
+
+**Array key_code_names:** O array `key_code_names[]` mapeia cada key code para uma string legível. Os códigos utilizados foram definidos com base no arquivo de cabeçalho do Kernel Linux:
+
+```bash
+/usr/include/linux/input-event-codes.h
+```
+Este arquivo faz parte da biblioteca `<linux/input.h>` e é a fonte oficial dos códigos de teclas (`KEY_*`), tipos de evento (`EV_*`), LEDs (`LED_*`) e demais constantes utilizadas pelo subsistema de entrada do Kernel.
 
 ### 5. Escrita no Log
 
@@ -185,9 +192,9 @@ make clean
 Caso prefira não instalar o `make`, é possível compilar diretamente com `cc` ou `gcc`:
 
 ```bash
-cc -c src/main.c        -I./include
-cc -c src/scan_device.c -I./include
-cc main.o scan_device.o -o main
+gcc -c src/main.c        -I./include
+gcc -c src/scan_device.c -I./include
+gcc main.o scan_device.o -o main
 
 # Executar (requer permissão de leitura em /dev/input/eventX)
 sudo ./main
