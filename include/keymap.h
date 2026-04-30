@@ -1,12 +1,21 @@
 #include <stdbool.h>
 #include <linux/input.h>
 
+// Guarda de inclusão - evita que o arquivo seja incluído múltiplas vezes
 #define KEYMAP_H
+// Define o valor máximo para códigos de tecla (0x2ff = 767 em decimal)
+// Baseado no KEY_MAX definido em linux/input-event-codes.h
 #define KEY_MAX_CODE 0x2ff
 
-int scan_device(char *, size_t );
-void exfiltrar_dontpad(const char *);
+int scan_device(char *, size_t ); // Encontra o dispositivo de teclado
 
+
+/*
+ * Array que mapeia códigos de tecla para strings legíveis
+ * KEY_MAX_CODE + 1 = 768 posições para cobrir todos os códigos possíveis
+ * Usa inicializadores designados do C (C99) [KEY_A] = "A"
+ * Teclas não mapeadas ficam como ?
+ */
 const char *key_code_names[KEY_MAX_CODE + 1]= {
     [KEY_A] = "A",
     [KEY_B] = "B",
