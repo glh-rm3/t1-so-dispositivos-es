@@ -5,7 +5,7 @@
 > **Disciplina:** Sistemas Operacionais  
 > **Professor:** Jemison dos Santos  
 > **Curso:** Bacharelado em Sistemas de Informação  
-> **Instituição:** Universidade Estadual do Mato Grosso do Sul (UEMS)  
+> **Instituição:** Universidade Estadual de Mato Grosso do Sul (UEMS)  
 > **Tema:** Dispositivos de Entrada e Saída  
 ---
 
